@@ -1,12 +1,13 @@
 #define MAXX 30
 #define MAXY 16
-#define refresh_time 200 // time in ms
+#define refresh_time 100 // time in ms
 
 #include <time.h>
 #include <curses.h>
 #include <unistd.h>
 #include <utility>
 #include <iostream>
+#include <termios.h> //terminal stuff
 
 #include <chrono> // time libs
 
@@ -52,11 +53,13 @@ class Player{
             }
         }
 
-        void change_dir(char key){
-            if(key == 'l')
+        void Change_dir(int key){
+            if(key == 122){
                 leftright = -1;
-            else if (key == 'r')
+            }
+            else if (key == 120){
                 leftright = 1;
+            }
         }
 };
 
@@ -84,7 +87,6 @@ class Window{
         }
 
         void Update(Player P, std::pair<int, int> pastPlayer){
-
             mvaddch(pastPlayer.second, pastPlayer.first, ' ');
             mvaddch(P.y, P.x, 'X');
             refresh();
@@ -94,10 +96,13 @@ class Window{
 #include <stdio.h>
 
 int main(){
+
     // Curses
     initscr();
     cbreak();
     noecho();
+    nodelay(stdscr,TRUE);
+
 
     clear(); // limpa tela
 
@@ -108,11 +113,15 @@ int main(){
 
     Window W;
 
+    int key;
     while(true){
         //printf("%d %d\n", P.x, P.y);
         //sleep(1);
         coord = std::make_pair(P.x, P.y);
         P.Update();
+        key = getch();
+        if(key < 10000 && key != -1)
+            P.Change_dir(key);
 
         // Renders Window
         W.Update(P, coord);
