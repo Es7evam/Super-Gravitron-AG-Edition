@@ -67,8 +67,5 @@ void Window::run() {
 
         Update(coord);
         //std::cout << "[Window] Thread is still running! \n";
-
     }
-
-    sleep(100);
 }
