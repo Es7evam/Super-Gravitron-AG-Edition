@@ -1,6 +1,15 @@
 #include "Window.hh"
 
-Window::Window() {
+Window::Window(Player *P) {
+    if(P == nullptr) {
+        exit(1);
+    }
+
+    _P = P;
+    _start = false;
+}
+
+void Window::FirstDraw() {
     int len = (1 + MAXX - 15)/2;
     int i;
 
@@ -25,8 +34,41 @@ Window::Window() {
     }
 }
 
-void Window::Update(Player P, std::pair<int, int> pastPlayer) {
+void Window::Update(std::pair<int, int> pastPlayer) {
     mvaddch(pastPlayer.second, pastPlayer.first, ' ');
-    mvaddch(P.y(), P.x(), 'X');
+    mvaddch(_P->y(), _P->x(), 'X');
     refresh();
+}
+
+void Window::run() {
+
+    std::cout << "[Window] Thread is running! \n";
+    // Curses
+    initscr();
+    cbreak();
+    noecho();
+    nodelay(stdscr,TRUE);
+
+    clear(); // limpa tela
+
+    std::pair <int, int> coord;
+    int key = 0;
+
+    FirstDraw();
+
+    while(true) {
+        coord = std::make_pair(_P->x(), _P->y());
+        key = getch();
+
+        _P->Update();
+        if(key < 10000 && key != -1) {
+            _P->Change_dir(key);
+        }
+
+        Update(coord);
+        //std::cout << "[Window] Thread is still running! \n";
+
+    }
+
+    sleep(100);
 }

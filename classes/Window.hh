@@ -11,8 +11,16 @@
 
 
 class Window{
-    public:
-        Window();
+    private:
+        Player *_P;
+        bool _start;
 
-        void Update(Player P, std::pair<int, int> pastPlayer);
+    public:
+        Window(Player *P);
+
+        void Update(std::pair<int, int> pastPlayer);
+        void FirstDraw();
+
+        // Thread
+        void run();
 };
