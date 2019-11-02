@@ -22,12 +22,15 @@ int main(){
     Window *W = new Window(P);
 
     std::thread window_thread(&Window::run, W);
+    std::thread player_thread(&Player::run, P);
+
     window_thread.join();
+    player_thread.join();
     //std::thread player_thread(&Player::Update, P);
 
 //    int key;
  /*   while(true){
-/*        //printf("%d %d\n", P.x, P.y);
+        printf("%d %d\n", P.x, P.y);
         //sleep(1);
         coord = std::make_pair(P.x(), P.y());
         //P.Update();

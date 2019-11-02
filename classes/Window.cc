@@ -34,10 +34,12 @@ void Window::FirstDraw() {
     }
 }
 
-void Window::Update(std::pair<int, int> pastPlayer) {
-    mvaddch(pastPlayer.second, pastPlayer.first, ' ');
+void Window::Update() {
+    mvaddch(_P->lastY(), _P->lastX(), ' ');
     mvaddch(_P->y(), _P->x(), 'X');
     refresh();
+    
+    _P->setReady();
 }
 
 void Window::run() {
@@ -51,21 +53,17 @@ void Window::run() {
 
     clear(); // limpa tela
 
-    std::pair <int, int> coord;
     int key = 0;
 
     FirstDraw();
 
     while(true) {
-        coord = std::make_pair(_P->x(), _P->y());
         key = getch();
 
-        _P->Update();
         if(key < 10000 && key != -1) {
             _P->Change_dir(key);
         }
 
-        Update(coord);
-        //std::cout << "[Window] Thread is still running! \n";
+        Update();
     }
 }

@@ -18,7 +18,7 @@ class Window{
     public:
         Window(Player *P);
 
-        void Update(std::pair<int, int> pastPlayer);
+        void Update();
         void FirstDraw();
 
         // Thread
