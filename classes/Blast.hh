@@ -24,6 +24,7 @@ class Blast{
         int pastx() {return _pastx;}
         int pasty() {return _pasty;}
         int leftright() {return _leftright;}
+        bool ended() {return _ended;}
 
         void Update();
 

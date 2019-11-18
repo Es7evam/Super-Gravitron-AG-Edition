@@ -10,7 +10,11 @@ Blast::Blast() {
     // Starting X and Y
     _x = (_leftright == 1) ? 1 : MAXX-1;
     _y = (rand()%(MAXY+1)) + 1;
+    while(_y >= MAXY){
+        _y = (rand()%(MAXY+1)) + 1;
+    }
     _pastx = _x;
+    _pasty = _y;
 }
 
 void Blast::Update() {
@@ -24,6 +28,9 @@ void Blast::Update() {
     }else if(_x == MAXX && _leftright == 1){
         _ended = true;
     }
+
+    if(_ended)
+        return; // free no futuro
 
     if(elapsed < refresh_time){
         return;

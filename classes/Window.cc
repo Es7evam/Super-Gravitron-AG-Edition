@@ -32,9 +32,14 @@ void Window::Update(Player P, std::vector<Blast>* B, std::pair<int, int> pastPla
 
     std::cerr << "Blast window size: " << B->size() << "\n";
     for(unsigned long int i = 0; i < B->size(); i++){
-        std::cerr << " Past "<< "[" << (*B)[i].pastx() << "," << (*B)[i].y() << "]" << "; New:" << "[" << (*B)[i].x() << "," << (*B)[i].y() << "]" << std::endl;
+        //std::cerr << " Past "<< "[" << (*B)[i].pastx() << "," << (*B)[i].y() << "]" << "; New:" << "[" << (*B)[i].x() << "," << (*B)[i].y() << "]" << std::endl;
         mvaddch((*B)[i].pasty(), (*B)[i].pastx(), ' ');
         mvaddch((*B)[i].y(), (*B)[i].x(), '*');
+
+        if((*B)[i].ended() == true){
+            mvaddch((*B)[i].y(), (*B)[i].x(), '#');
+            (*B).erase((*B).begin()+i);
+        }
     }
     
     // Generating new Blast
