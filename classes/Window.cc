@@ -34,7 +34,7 @@ void Window::Update(Player P, std::vector<Blast>* B, std::pair<int, int> pastPla
     }
     
 
-    std::string s = std::to_string((int)P.score()/1000);
+    std::string s = std::to_string((float)P.score()/1000.0).substr(0,4);
     char const *pchar = s.c_str();
     mvaddstr(0, MAXX-3, pchar);
 
