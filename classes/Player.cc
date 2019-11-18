@@ -1,7 +1,9 @@
 #include "Player.hh"
+#include <iostream>
 
 Player::Player() {
     _start_time = std::chrono::steady_clock::now();
+    _game_time = _start_time;
     _updown = -1;
     _leftright = -1;
     _x = MAXX/2;
@@ -12,6 +14,8 @@ void Player::Update() {
     // Calculates time difference
     auto now = std::chrono::steady_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - _start_time).count();
+    
+    //std::cerr << "Score: " << _score << std::endl;
 
     if(_y == 1 && _updown == -1){
         _updown = 1;
@@ -27,7 +31,8 @@ void Player::Update() {
     if(elapsed < refresh_time){
         return;
     }
-    _start_time = std::chrono::steady_clock::now();
+    _score = (int)std::chrono::duration_cast<std::chrono::milliseconds>(now - _game_time).count();
+    _start_time = now;
 
     _y += _updown;
     _x += _leftright; 

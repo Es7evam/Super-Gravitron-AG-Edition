@@ -16,7 +16,8 @@ class Window{
         Window();
 
         void Update(Player P, std::vector <Blast> *B,std::pair<int, int> pastPlayer);
-        bool Collided(std::vector<Player> P, std::vector<Blast> B);
+        bool Collided(Player P, std::vector<Blast> B);
+        void EndGame();
     
     private:
         std::chrono::steady_clock::time_point _lastblast ;

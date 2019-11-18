@@ -39,7 +39,7 @@ void Blast::Update() {
 
     _pastx = _x;
     _x += _leftright; 
-    std::cerr << "Updated "<< "[" << _pastx << "," << _y << "]" << "to " << "[" << _x << "," << _y << "]" << std::endl;
+    //std::cerr << "Updated "<< "[" << _pastx << "," << _y << "]" << "to " << "[" << _x << "," << _y << "]" << std::endl;
 
     // Dá volta
     if(_x == 0 && _leftright == -1){
