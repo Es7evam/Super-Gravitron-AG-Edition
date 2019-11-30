@@ -12,20 +12,25 @@
 #include "globalconstants.hh"
 #include "Entity.hh"
 #include "Player.hh"
+#include "Blast.hh"
 
 class Window : public Entity{
     private:
         Player *_P;
+        Blast *_B;
         bool _start;
         int _key;
 
     public:
-        Window(Player *P);
+        Window(Player *P, Blast *B);
 
         std::string name();
         void init();
         void Update();
         void FirstDraw();
+        void finish();
+
+        bool Collided();
 };
 
 #endif

@@ -1,11 +1,12 @@
 #include "Window.hh"
 
-Window::Window(Player *P) {
-    if(P == nullptr) {
+Window::Window(Player *P, Blast *B) {
+    if(P == nullptr || B == nullptr) {
         exit(1);
     }
 
     _P = P;
+    _B = B;
     _start = false;
     _key = 0;
 }
@@ -24,7 +25,7 @@ void Window::FirstDraw() {
         mvaddch(0, i, wall);
     }
 
-    mvaddstr(0, i, "Super Gravitron");
+    mvaddstr(0, 3, " Super Gravitron - Score:   ");
     for(i=15+len;i<=MAXX;i++) {
         mvaddch(0, i, wall);
     }
@@ -61,5 +62,52 @@ void Window::Update() {
     refresh();
     
     _P->setReady();
+
+    mvaddch((*_B).pasty(), (*_B).pastx(), ' ');
+    mvaddch((*_B).y(), (*_B).x(), '*');
+
+    if((*_B).ended() == true){
+        mvaddch((*_B).y(), (*_B).x(), '#');
+    }
+
+    Collided();
+
+    _B->setReady();
+
     _isReady = true;
+}
+
+void Window::finish() {
+    char wall = 'O';
+    int len = (1 + MAXX - 10)/2;
+    int i;
+    int writeY = MAXY+3;
+
+    // Parede superior 
+    for(i=0;i<=MAXX;i++) {
+        mvaddch(writeY, i, wall);
+    }
+    
+    for(i=0;i<=MAXX;i++) {
+        mvaddch(writeY+1, i, wall);
+    }
+    mvaddstr(writeY+1, len, " You Lose ");
+    
+    for(i=0;i<=MAXX;i++) {
+        mvaddch(writeY+2, i, wall);
+    }
+    refresh();
+    while(1);    
+}
+
+bool Window::Collided() {
+    bool collision = false;
+
+    if(_P->x() == _B->x() && _P->y() == _B->y()) {
+        collision = true;
+        _isRunning = false;
+    }
+
+
+    return collision;
 }
