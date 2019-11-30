@@ -35,7 +35,7 @@ void Window::FirstDraw() {
 }
 
 void Window::Update() {
-    mvaddch(_P->lastY(), _P->lastX(), ' ');
+    mvaddch(_P->pasty(), _P->pastx(), ' ');
     mvaddch(_P->y(), _P->x(), 'X');
     refresh();
     

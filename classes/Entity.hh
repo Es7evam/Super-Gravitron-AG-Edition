@@ -6,14 +6,11 @@
 #include <mutex>
 
 class Entity {
-    private:
-        bool _isReady;
-
     protected:
         std::mutex _readyMutex;
         int _x, _y;
         int _pastx, _pasty;
-        bool _isRunning;
+        bool _isRunning, _isReady;;
         
         virtual void Update() = 0;
 
@@ -29,8 +26,8 @@ class Entity {
         //Getters and setters
         int x() {return _x;}
         int y() {return _y;}
-        int lastX() {return _pastx;}
-        int lastY() {return _pasty;}
+        int pastx() {return _pastx;}
+        int pasty() {return _pasty;}
         int isReady() {return _isReady;}
         void setReady();
         virtual std::string name() = 0;

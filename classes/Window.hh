@@ -1,3 +1,6 @@
+#ifndef WINDOW_HH
+#define WINDOW_HH
+
 #include <time.h>
 #include <curses.h>
 #include <unistd.h>
@@ -24,3 +27,5 @@ class Window{
         // Thread
         void run();
 };
+
+#endif

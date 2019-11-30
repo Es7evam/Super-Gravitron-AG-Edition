@@ -1,3 +1,6 @@
+#ifndef BLAST_HH
+#define BLAST_HH
+
 // Own codes
 #include "globalconstants.hh"
 
@@ -33,3 +36,5 @@ class Blast{
         void run();
 
 };
+
+#endif

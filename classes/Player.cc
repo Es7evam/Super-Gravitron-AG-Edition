@@ -1,30 +1,21 @@
 #include "Player.hh"
 
 Player::Player() {
+
+}
+
+std::string Player::name() {
+    return "Player";
+}
+
+void Player::init() {
     _start_time = std::chrono::steady_clock::now();
     _updown = -1;
     _leftright = -1;
     _x = MAXX/2;
     _y = MAXY/2;
-    _lastX = 0;
-    _lastY = 0;
-    _isReady = false;
-}
-
-void Player::run() {
-    std::cout << "[Player] Thread is running!\n";
-
-    while (true) {
-        Update();
-
-        while (_isReady == false); // Wait for window update
-    }
-}
-
-void Player::setReady() {
-    _readyMutex.lock();
-    _isReady = true;
-    _readyMutex.unlock();
+    _pastx = 0;
+    _pasty = 0;
 }
 
 void Player::Update() {
@@ -41,10 +32,10 @@ void Player::Update() {
         _updown = -1;
     }
     if(_x == 0 && _leftright == -1){
-        _lastX = _x;
+        _pastx = _x;
         _x = MAXX-1;
     }else if(_x == MAXX && _leftright == 1){
-        _lastX = _x;
+        _pastx = _x;
         _x = 1;
     }
 
@@ -54,8 +45,8 @@ void Player::Update() {
 
     _start_time = std::chrono::steady_clock::now();
 
-    _lastX = _x;
-    _lastY = _y;
+    _pastx = _x;
+    _pasty = _y;
 
     _y += _updown;
     _x += _leftright; 
