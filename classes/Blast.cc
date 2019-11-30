@@ -3,6 +3,14 @@
 #include <iostream>
 
 Blast::Blast() {
+
+}
+
+std::string Blast::name() {
+    return "Blast";
+}
+
+void Blast::init() {
     _start_time = std::chrono::steady_clock::now();
     _leftright = (rand()%2 == 0) ? 1 : -1;
     _ended = false;
@@ -15,8 +23,6 @@ Blast::Blast() {
     }
     _pastx = _x;
     _pasty = _y;
-
-    _isReady = false;
 }
 
 void Blast::Update() {
@@ -49,8 +55,4 @@ void Blast::Update() {
     }else if(_x == MAXX && _leftright == 1){
         _ended = true;
     }
-}
-
-void Blast::run() {
-
 }
