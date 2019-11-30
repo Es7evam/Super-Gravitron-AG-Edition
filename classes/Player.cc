@@ -19,6 +19,7 @@ void Player::init() {
 }
 
 void Player::Update() {
+
     _readyMutex.lock();
     _isReady = false;
 

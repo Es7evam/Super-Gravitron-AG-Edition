@@ -10,22 +10,22 @@
 
 // Own codes
 #include "globalconstants.hh"
+#include "Entity.hh"
 #include "Player.hh"
 
-
-class Window{
+class Window : public Entity{
     private:
         Player *_P;
         bool _start;
+        int _key;
 
     public:
         Window(Player *P);
 
+        std::string name();
+        void init();
         void Update();
         void FirstDraw();
-
-        // Thread
-        void run();
 };
 
 #endif

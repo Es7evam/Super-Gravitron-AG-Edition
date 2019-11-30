@@ -17,7 +17,7 @@ void Entity::run() {
     while (_isRunning) {
         Update();
 
-        while (_isReady == false); // Wait for window update
+        while (_isReady == false);
     }
 
     finish();
@@ -30,5 +30,5 @@ void Entity::setReady() {
 }
 
 void Entity::finish() {
-    
+
 }

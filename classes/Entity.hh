@@ -28,7 +28,7 @@ class Entity {
         int y() {return _y;}
         int pastx() {return _pastx;}
         int pasty() {return _pasty;}
-        int isReady() {return _isReady;}
+        bool isReady() {return _isReady;}
         void setReady();
         virtual std::string name() = 0;
 };

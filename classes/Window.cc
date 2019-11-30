@@ -7,6 +7,11 @@ Window::Window(Player *P) {
 
     _P = P;
     _start = false;
+    _key = 0;
+}
+
+std::string Window::name() {
+    return "Window";
 }
 
 void Window::FirstDraw() {
@@ -34,17 +39,7 @@ void Window::FirstDraw() {
     }
 }
 
-void Window::Update() {
-    mvaddch(_P->pasty(), _P->pastx(), ' ');
-    mvaddch(_P->y(), _P->x(), 'X');
-    refresh();
-    
-    _P->setReady();
-}
-
-void Window::run() {
-
-    std::cout << "[Window] Thread is running! \n";
+void Window::init() {
     // Curses
     initscr();
     cbreak();
@@ -52,18 +47,19 @@ void Window::run() {
     nodelay(stdscr,TRUE);
 
     clear(); // limpa tela
-
-    int key = 0;
-
     FirstDraw();
+}
 
-    while(true) {
-        key = getch();
-
-        if(key < 10000 && key != -1) {
-            _P->Change_dir(key);
-        }
-
-        Update();
+void Window::Update() {
+    _key = getch();
+    if(_key < 10000 && _key != -1) {
+        _P->Change_dir(_key);
     }
+
+    mvaddch(_P->pasty(), _P->pastx(), ' ');
+    mvaddch(_P->y(), _P->x(), 'X');
+    refresh();
+    
+    _P->setReady();
+    _isReady = true;
 }
