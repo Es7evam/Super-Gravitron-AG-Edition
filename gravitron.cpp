@@ -26,21 +26,6 @@ int main(){
 
     window_thread.join();
     player_thread.join();
-    //std::thread player_thread(&Player::Update, P);
-
-//    int key;
- /*   while(true){
-        printf("%d %d\n", P.x, P.y);
-        //sleep(1);
-        coord = std::make_pair(P.x(), P.y());
-        //P.Update();
-        key = getch();
-        if(key < 10000 && key != -1)
-            P.Change_dir(key);
-
-        // Renders Window*/
- //       W.Update(P, coord);
-    //}
 
     return 0;
 }
