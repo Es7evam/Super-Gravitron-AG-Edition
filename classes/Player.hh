@@ -3,7 +3,7 @@
 
 // Own codes
 #include "globalconstants.hh"
-#include "Entity.hh"
+#include "Object.hh"
 
 #include <time.h>
 #include <curses.h>
@@ -17,7 +17,7 @@
 
 #include <chrono> // time libs
 
-class Player : public Entity{
+class Player : public Object{
     private:
         int _updown, _leftright; // -1 - up; 1 - down; -1 - left; 1 - right
 

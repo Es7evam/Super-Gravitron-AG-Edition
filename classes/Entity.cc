@@ -1,10 +1,6 @@
 #include "Entity.hh"
 
 Entity::Entity() {
-    _x = 0;
-    _y = 0;
-    _pastx = -1;
-    _pasty = -1;
     _isReady = false;
     _isRunning = true;    
 }
