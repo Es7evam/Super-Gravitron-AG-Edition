@@ -17,12 +17,12 @@
 class Window : public Entity{
     private:
         Player *_P;
-        Blast *_B;
+        std::vector<Blast *> _B;
         bool _start;
         int _key;
 
     public:
-        Window(Player *P, Blast *B);
+        Window(Player *P, std::vector<Blast *> B);
 
         std::string name();
         void init();

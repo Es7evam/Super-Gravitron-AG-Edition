@@ -1,8 +1,14 @@
 #include "Window.hh"
 
-Window::Window(Player *P, Blast *B) {
-    if(P == nullptr || B == nullptr) {
+Window::Window(Player *P, std::vector<Blast *> B) {
+    if(P == nullptr) {
         exit(1);
+    }
+
+    for (int i = 0; i < (int)B.size(); i++) {
+        if(B[i] == nullptr) {
+            exit(1);
+        }
     }
 
     _P = P;
@@ -63,17 +69,21 @@ void Window::Update() {
     
     _P->setReady();
 
-    mvaddch((*_B).pasty(), (*_B).pastx(), ' ');
-    mvaddch((*_B).y(), (*_B).x(), '*');
+    for(int i = 0; i < (int)_B.size(); i++) {
+        mvaddch(_B[i]->pasty(), _B[i]->pastx(), ' ');
+        mvaddch(_B[i]->y(), _B[i]->x(), '*');
 
-    if((*_B).ended() == true){
-        mvaddch((*_B).y(), (*_B).x(), '#');
-        _B->setRunning();
+        if(_B[i]->ended() == true){
+            mvaddch(_B[i]->y(), _B[i]->x(), '#');
+            _B[i]->setRunning();
+        }
     }
 
     Collided();
 
-    _B->setReady();
+    for(int i = 0; i < (int)_B.size(); i++) {
+        _B[i]->setReady();
+    }
 
     _isReady = true;
 }
@@ -104,9 +114,11 @@ void Window::finish() {
 bool Window::Collided() {
     bool collision = false;
 
-    if(_P->x() == _B->x() && _P->y() == _B->y()) {
-        collision = true;
-        _isRunning = false;
+    for(int i = 0; i < (int)_B.size(); i++) {
+        if(_P->x() == _B[i]->x() && _P->y() == _B[i]->y()) {
+            collision = true;
+            _isRunning = false;
+        }
     }
 
 
