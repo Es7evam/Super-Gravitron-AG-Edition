@@ -30,16 +30,10 @@ void Blast::Update() {
     auto now = std::chrono::steady_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - _start_time).count();
 
-    // Dá volta
-    if(_x == 0 && _leftright == -1){
-        _ended = true;
-    }else if(_x == MAXX && _leftright == 1){
-        _ended = true;
-    }
 
-    if(_ended)
+    /*if(_ended)
         return; // free no futuro
-
+*/
     if(elapsed < refresh_time){
         return;
     }
@@ -52,7 +46,9 @@ void Blast::Update() {
     // Dá volta
     if(_x == 0 && _leftright == -1){
         _ended = true;
+        _x = MAXX-1;
     }else if(_x == MAXX && _leftright == 1){
         _ended = true;
+        _x = 1;
     }
 }

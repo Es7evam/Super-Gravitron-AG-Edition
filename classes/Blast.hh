@@ -23,6 +23,7 @@ class Blast: public Object{
 
         int leftright() {return _leftright;}
         bool ended() {return _ended;}
+        void setRunning() {_ended = false;}
 
         void Update();
         void init();

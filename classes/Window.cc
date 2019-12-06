@@ -68,6 +68,7 @@ void Window::Update() {
 
     if((*_B).ended() == true){
         mvaddch((*_B).y(), (*_B).x(), '#');
+        _B->setRunning();
     }
 
     Collided();
