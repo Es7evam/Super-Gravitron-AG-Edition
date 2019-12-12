@@ -1,5 +1,6 @@
-#include "Player.hh"
 #include <iostream>
+#include "Player.hh"
+#include "AG.hh"
 
 Player::Player() {
     _start_time = std::chrono::steady_clock::now();
@@ -8,6 +9,8 @@ Player::Player() {
     _leftright = -1;
     _x = MAXX/2;
     _y = MAXY/2;
+    
+    _moveCount = 0;
 }
 
 void Player::Update() {
@@ -31,6 +34,11 @@ void Player::Update() {
     if(elapsed < refresh_time){
         return;
     }
+    _moveCount++;
+    if(myAg.enabled){
+        myAg.makeMove(*this);
+    }
+
     _score = (int)std::chrono::duration_cast<std::chrono::milliseconds>(now - _game_time).count();
     _start_time = now;
 

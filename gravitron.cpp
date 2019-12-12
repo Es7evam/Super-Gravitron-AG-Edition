@@ -4,11 +4,13 @@
 #include <utility>
 #include <iostream>
 #include <termios.h> //terminal stuff
+#include <cstring>
 
 #include <chrono> // time libs
 
 // Own codes
 #include "classes/Window.hh"
+#include "classes/AG.hh"
 #include <stdio.h>
 
 void debug(std::vector<Blast> B){
@@ -19,7 +21,18 @@ void debug(std::vector<Blast> B){
     }
 }
 
-int main(){
+int main(int argc, char *argv[]){
+    AG myAg;
+    if(argc > 1){
+        if(strcmp("evolution", argv[1]) == 0){
+            myAg.enabled = true;
+        }
+        if(argc > 2){
+            if(strcmp("--load", argv[2]) == 0){
+                myAg.load();
+            }
+        }
+    }
 
     // Curses
     initscr();

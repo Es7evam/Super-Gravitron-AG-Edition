@@ -10,7 +10,6 @@
 #include "Player.hh"
 #include "Blast.hh"
 
-
 class Window{
     public:
         Window();
