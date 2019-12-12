@@ -7,8 +7,9 @@ AG::AG(){
     enabled = false;
 }
 
+// Saves the movement vector and its parameters
 void AG::save(){
-    _movements.clear();
+    // Saves the movements vector, the max score and each movement.
     FILE *fp;
     fp = fopen("best.txt", "w");
     fprintf(fp, "%d %d\n", (int)_movements.size(), _maxScore);
@@ -16,12 +17,31 @@ void AG::save(){
         fprintf(fp, "%d %d\n", _movements[i].first,  _movements[i].second);
     }
     fclose(fp);
+
+    // Save best scores to make a chart later on
+    FILE *fpChart;
+    fpChart = fopen("chart.txt", "w");
+    fprintf(fpChart, "%d\n", _maxScore);
+    fclose(fpChart);
 }
 
+// Loads the algorithm parameters and movements
 void AG::load(){
+    
     int direction, moveTime;
     FILE *fp;
     fp = fopen("best.txt", "r");
+    if (fp == NULL) {
+        printf("No file, creating one...");
+        save();
+        fclose(fp);
+
+        fp = fopen("best.txt", "r");
+    }
+
+    // Clears the current movements vector and starts to load it
+    // It trusts user input (movequantity), otherwise the program will crash
+    _movements.clear();
     fscanf(fp, "%d %d", &_moveQuantity, &_maxScore);
     for(int i=0;i<_moveQuantity;i++){
         fscanf(fp, "%d %d", &direction, &moveTime);
@@ -50,12 +70,15 @@ int AG::makeMove(Player P){
             direction = 0; //não move
         }
         
+        // makes a new movement in the given random direction
+        // sets the movement id as the _currentMove variable
         newMove = std::make_pair(direction, _currentMove);
         _movements.push_back(newMove);
     }
     _currentMove++;
     // se chegou no threshold tenta mover
 
+    // returns the direction the player moved after the "shuffle" 
     return direction;
 }
 
