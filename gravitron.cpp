@@ -45,39 +45,55 @@ int main(int argc, char *argv[]){
 
     clear(); // limpa tela
 
-    Player P;
+    Player *P = new Player();
     std::vector<Blast> B;
     std::pair <int, int> coord;
 
-    Window W;
+    Window *W = new Window();
 
     int key;
     int cont = 0;
-    while(true){
-        //printf("%d %d\n", P.x, P.y);
-        //sleep(1);
-        coord = std::make_pair(P.x(), P.y());
-        P.Update();
-        for(long unsigned int i=0;i<B.size();i++){
-            B[i].Update();
-        }
-        if(myAg.enabled) {
-            key = myAg.makeMove();
-        } else {
-            key = getch();
-        }
-        
-        if(key < 10000 && key != -1)
-            P.Change_dir(key);
+    bool loop = false;
+    for (int i = 0; i < 50; i++) {
+        while(!loop){
+            //printf("%d %d\n", P.x, P.y);
+            //sleep(1);
+            coord = std::make_pair(P->x(), P->y());
+            P->Update();
+            for(long unsigned int i=0;i<B.size();i++){
+                B[i].Update();
+            }
+            if(myAg.enabled) {
+                key = myAg.makeMove();
+            } else {
+                key = getch();
+            }
+            
+            if(key < 10000 && key != -1)
+                P->Change_dir(key);
 
-        // Renders Window
-        W.Update(P, &B, coord);
-        
-        if(cont++ == 100){
-            //debug(B);
-            cont=0;
+            // Renders Window
+            loop = W->Update(*P, &B, coord);
+            
+            if(cont++ == 100){
+                //debug(B);
+                cont=0;
+            }
         }
+        delete P;
+        delete W;
+        B.clear();
+
+        clear();
+
+        P = new Player();
+        W = new Window();
+        
+        std::cout << "Gen " << i << " finished!\n";
+        loop = false;
     }
 
+    nocbreak();
+    echo();
     return 0;
 }

@@ -14,7 +14,7 @@ class Window{
     public:
         Window();
 
-        void Update(Player P, std::vector <Blast> *B,std::pair<int, int> pastPlayer);
+        bool Update(Player P, std::vector <Blast> *B,std::pair<int, int> pastPlayer);
         bool Collided(Player P, std::vector<Blast> B);
         void EndGame();
     

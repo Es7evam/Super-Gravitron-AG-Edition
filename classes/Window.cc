@@ -19,7 +19,7 @@ Window::Window() {
     mvaddstr(0, 3, " Super Gravitron - Score:   ");
 }
 
-void Window::Update(Player P, std::vector<Blast>* B, std::pair<int, int> pastPlayer) {
+bool Window::Update(Player P, std::vector<Blast>* B, std::pair<int, int> pastPlayer) {
 
     // Rendering Blasts
     for(unsigned long int i = 0; i < B->size(); i++){
@@ -53,8 +53,10 @@ void Window::Update(Player P, std::vector<Blast>* B, std::pair<int, int> pastPla
         _lastblast = now;
         B->push_back((*newBlast));
     }
-    Collided(P, *B);
+    bool ret = Collided(P, *B);
     refresh();
+
+    return ret;
 }
 
 bool Window::Collided(Player player, std::vector<Blast> B){
@@ -91,7 +93,7 @@ void Window::EndGame(){
     for(i=0;i<=MAXX;i++) {
         mvaddch(writeY+2, i, wall);
     }
-    refresh();
-    while(1);
+    //refresh();
+    //while(1);
 
 }
