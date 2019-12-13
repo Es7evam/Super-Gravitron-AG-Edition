@@ -23,9 +23,11 @@ void debug(std::vector<Blast> B){
 
 int main(int argc, char *argv[]){
     AG myAg;
+
     if(argc > 1){
         if(strcmp("evolution", argv[1]) == 0){
             myAg.enabled = true;
+            std::cout << "AG enabled\n";
         }
         if(argc > 2){
             if(strcmp("--load", argv[2]) == 0){
@@ -55,11 +57,16 @@ int main(int argc, char *argv[]){
         //printf("%d %d\n", P.x, P.y);
         //sleep(1);
         coord = std::make_pair(P.x(), P.y());
-        P.Update(myAg);
+        P.Update();
         for(long unsigned int i=0;i<B.size();i++){
             B[i].Update();
         }
-        key = getch();
+        if(myAg.enabled) {
+            key = myAg.makeMove();
+        } else {
+            key = getch();
+        }
+        
         if(key < 10000 && key != -1)
             P.Change_dir(key);
 

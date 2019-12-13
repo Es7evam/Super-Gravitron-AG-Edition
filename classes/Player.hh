@@ -26,7 +26,7 @@ class Player{
         int moveCount() {return _moveCount;}
 
 
-        void Update(AG myAg);
+        void Update();
 
         void Change_dir(int key);
 };
