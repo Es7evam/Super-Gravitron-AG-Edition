@@ -55,7 +55,7 @@ int main(int argc, char *argv[]){
         //printf("%d %d\n", P.x, P.y);
         //sleep(1);
         coord = std::make_pair(P.x(), P.y());
-        P.Update();
+        P.Update(myAg);
         for(long unsigned int i=0;i<B.size();i++){
             B[i].Update();
         }

@@ -3,6 +3,7 @@
 #ifndef playerDeclared
 #define playerDeclared
 #include "globalconstants.hh"
+#include "AG.hh"
 
 // Libs
 #include <chrono> // time libs
@@ -25,7 +26,7 @@ class Player{
         int moveCount() {return _moveCount;}
 
 
-        void Update();
+        void Update(AG myAg);
 
         void Change_dir(int key);
 };

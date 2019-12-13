@@ -13,7 +13,7 @@ Player::Player() {
     _moveCount = 0;
 }
 
-void Player::Update() {
+void Player::Update(AG myAg) {
     // Calculates time difference
     auto now = std::chrono::steady_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - _start_time).count();
@@ -36,7 +36,7 @@ void Player::Update() {
     }
     _moveCount++;
     if(myAg.enabled){
-        myAg.makeMove(*this);
+        myAg.makeMove();
     }
 
     _score = (int)std::chrono::duration_cast<std::chrono::milliseconds>(now - _game_time).count();

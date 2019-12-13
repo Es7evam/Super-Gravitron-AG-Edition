@@ -2,7 +2,6 @@
 #ifndef AGIncluded
 #define AGIncluded
 #include "globalconstants.hh"
-#include "Player.hh"
 
 // Libs
 #include <algorithm>
@@ -24,12 +23,12 @@ class AG{
 
         AG();
 
-        int makeMove(Player P);
+        int makeMove();
 
         void save();
         void load();
 
-        void endGame(Player P);
+        void endGame(int score);
         
         bool enabled;
 };

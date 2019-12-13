@@ -50,7 +50,7 @@ void AG::load(){
     fclose(fp);
 }
 
-int AG::makeMove(Player P){
+int AG::makeMove(){
     // até moveCount ser quase igual a _moveQuantity, move seguindo _movements
 
     std::pair<int, int> newMove;
@@ -82,10 +82,10 @@ int AG::makeMove(Player P){
     return direction;
 }
 
-void AG::endGame(Player P){
+void AG::endGame(int score){
     // Get Score Information
     _moveQuantity = (int)_movements.size();
-    _maxScore = std::max(_maxScore, P.score());
+    _maxScore = std::max(_maxScore, score);
 
     save();
 }
