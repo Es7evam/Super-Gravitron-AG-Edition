@@ -53,8 +53,16 @@ int main(int argc, char *argv[]){
 
     int key;
     int cont = 0;
+    int maxscore = 0;
     bool loop = false;
+    std::string s;
     for (int i = 0; i < 50; i++) {
+        mvaddstr(5, 40, "Geracao: ");
+        s = std::to_string(i).substr(0,4);
+        mvaddstr(5, 60, s.c_str());
+        mvaddstr(7, 40, "Maior score: ");
+        s = std::to_string((float)maxscore/1000.0).substr(0,4);
+        mvaddstr(7, 60, s.c_str());   
         while(!loop){
             //printf("%d %d\n", P.x, P.y);
             //sleep(1);
@@ -80,6 +88,10 @@ int main(int argc, char *argv[]){
                 cont=0;
             }
         }
+        if(P->score() > maxscore) {
+            maxscore = P->score();
+        }
+        
         delete P;
         delete W;
         B.clear();
@@ -88,8 +100,6 @@ int main(int argc, char *argv[]){
 
         P = new Player();
         W = new Window();
-        
-        std::cout << "Gen " << i << " finished!\n";
         loop = false;
     }
 
