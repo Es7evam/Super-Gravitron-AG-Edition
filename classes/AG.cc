@@ -1,4 +1,5 @@
 #include "AG.hh"
+#include <iostream>
 
 AG::AG(){
     _moveQuantity = _currentMove = _maxScore = 0;
@@ -21,8 +22,10 @@ void AG::save(){
     // Save best scores to make a chart later on
     FILE *fpChart;
     fpChart = fopen("chart.txt", "w");
-    fprintf(fpChart, "%d\n", _maxScore);
-    fclose(fpChart);
+    if(fpChart != NULL) {
+        fprintf(fpChart, "%d\n", _maxScore);
+        fclose(fpChart);
+    }
 }
 
 // Loads the algorithm parameters and movements
@@ -32,13 +35,10 @@ void AG::load(){
     FILE *fp;
     fp = fopen("best.txt", "r");
     if (fp == NULL) {
-        printf("No file, creating one...");
+        std::cout << "No file, creating one...\n";
         save();
-        fclose(fp);
-
         fp = fopen("best.txt", "r");
     }
-
     // Clears the current movements vector and starts to load it
     // It trusts user input (movequantity), otherwise the program will crash
     _movements.clear();

@@ -57,6 +57,7 @@ int main(int argc, char *argv[]){
     bool loop = false;
     std::string s;
     for (int i = 0; i < 50; i++) {
+        myAg.load();
         mvaddstr(5, 40, "Geracao: ");
         s = std::to_string(i).substr(0,4);
         mvaddstr(5, 60, s.c_str());
@@ -91,7 +92,7 @@ int main(int argc, char *argv[]){
         if(P->score() > maxscore) {
             maxscore = P->score();
         }
-        
+        myAg.endGame(P->score());
         delete P;
         delete W;
         B.clear();
