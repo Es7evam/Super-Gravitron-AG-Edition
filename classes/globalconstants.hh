@@ -1,3 +1,4 @@
-#define MAXX 30
+#define MAXX 32
 #define MAXY 16
-#define refresh_time 100 // time in ms
+#define refresh_time 80 // time in ms
+#define bullet_time 300
