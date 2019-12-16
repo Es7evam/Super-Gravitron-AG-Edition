@@ -3,7 +3,7 @@
 
 AG::AG(){
     _moveQuantity = _currentMove = _maxScore = 0;
-    _threshold = 10;
+    _threshold = 05;
     _bias = 10;
     enabled = false;
 }
@@ -21,7 +21,7 @@ void AG::save(){
 
     // Save best scores to make a chart later on
     FILE *fpChart;
-    fpChart = fopen("chart.txt", "w");
+    fpChart = fopen("chart.txt", "a+");
     if(fpChart != NULL) {
         fprintf(fpChart, "%d\n", _maxScore);
         fclose(fpChart);
@@ -85,7 +85,8 @@ int AG::makeMove(){
 void AG::endGame(int score){
     // Get Score Information
     _moveQuantity = (int)_movements.size();
+    std::cerr << score << std::endl;
+    if(score > _maxScore)
+	    save();
     _maxScore = std::max(_maxScore, score);
-
-    save();
 }

@@ -20,7 +20,7 @@ Window::Window() {
 }
 
 bool Window::Update(Player P, std::vector<Blast>* B, std::pair<int, int> pastPlayer) {
-
+    #ifndef RENDER
     // Rendering Blasts
     for(unsigned long int i = 0; i < B->size(); i++){
         //std::cerr << " Past "<< "[" << (*B)[i].pastx() << "," << (*B)[i].y() << "]" << "; New:" << "[" << (*B)[i].x() << "," << (*B)[i].y() << "]" << std::endl;
@@ -42,6 +42,7 @@ bool Window::Update(Player P, std::vector<Blast>* B, std::pair<int, int> pastPla
     mvaddch(pastPlayer.second, pastPlayer.first, ' ');
     mvaddch(P.y(), P.x(), 'X');
 
+    #endif
 
     // Generating new Blast
     auto now = std::chrono::steady_clock::now();

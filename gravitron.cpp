@@ -64,20 +64,27 @@ int main(int argc, char *argv[]){
         mvaddstr(7, 40, "Maior score: ");
         s = std::to_string((float)maxscore/1000.0).substr(0,4);
         mvaddstr(7, 60, s.c_str());   
+	std::chrono::steady_clock::time_point lastUpdate;
+	lastUpdate = std::chrono::steady_clock::now();
         while(!loop){
             //printf("%d %d\n", P.x, P.y);
             //sleep(1);
-            coord = std::make_pair(P->x(), P->y());
-            P->Update();
-            for(long unsigned int i=0;i<B.size();i++){
-                B[i].Update();
-            }
             if(myAg.enabled) {
-                key = myAg.makeMove();
+		auto now = std::chrono::steady_clock::now();
+		auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastUpdate).count();
+		
+		if(elapsed > refresh_time){
+		    key = myAg.makeMove();
+		    lastUpdate = std::chrono::steady_clock::now();
+		}
             } else {
                 key = getch();
-            }
-            
+	    }
+	    coord = std::make_pair(P->x(), P->y());
+	    P->Update();
+	    for(long unsigned int i=0;i<B.size();i++){
+		                    B[i].Update();
+		        }            
             if(key < 10000 && key != -1)
                 P->Change_dir(key);
 

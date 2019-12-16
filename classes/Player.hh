@@ -24,6 +24,8 @@ class Player{
         int y() {return _y;}
         int score() {return _score;}
         int moveCount() {return _moveCount;}
+	std::chrono::steady_clock::time_point getTime() {return _start_time;}
+
 
 
         void Update();
